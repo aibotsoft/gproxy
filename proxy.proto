@@ -1,0 +1,59 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package gproxy;
+
+service Proxy {
+    rpc CreateProxy (CreateProxyRequest) returns (CreateProxyResponse) {
+    }
+    rpc GetNextProxy (GetNextProxyRequest) returns (GetNextProxyResponse) {
+    }
+    rpc GetBestProxy (GetBestProxyRequest) returns (GetBestProxyResponse) {
+    }
+//    rpc CreateProxyStat (CreateProxyStatRequest) returns (CreateProxyStatResponse) {
+//    }
+}
+
+
+message GetNextProxyRequest {
+}
+message GetNextProxyResponse {
+    ProxyItem proxy_item = 1;
+}
+message GetBestProxyRequest {
+}
+message GetBestProxyResponse {
+    ProxyItem proxy_item = 1;
+}
+message CreateProxyRequest {
+    ProxyItem proxy_item = 1;
+}
+message CreateProxyResponse {
+    ProxyItem proxy_item = 1;
+}
+
+message ProxyCountry {
+    int64 country_id = 1;
+    string country_name = 2;
+    string country_code = 3;
+    google.protobuf.Timestamp created_at = 4;
+}
+
+message ProxyStat {
+    int64 stat_id = 1;
+    int64 proxy_id = 2;
+    int64 conn_time = 3;
+    bool conn_status = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+message ProxyItem {
+    int64 proxy_id = 1;
+    string proxy_ip = 2;
+    int64 proxy_port = 3;
+    string anonymity = 5;
+    ProxyCountry proxy_country = 4;
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
+}
