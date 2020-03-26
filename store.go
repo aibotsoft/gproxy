@@ -6,6 +6,8 @@ import (
 	"github.com/jackc/pgx/v4"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
+	"go/types"
+	"net"
 )
 
 type Store struct {
@@ -17,6 +19,9 @@ type Store struct {
 const (
 	selectProxyCountryIdByCode = `select country_id from country where country_code=$1`
 	selectProxyIdByUI          = `select proxy_id from proxy where proxy_ip=$1 and proxy_port=$2`
+
+	getNextProxyItem          = `select proxy_id, proxy_ip, proxy_port from proxy_stat_view limit 1`
+
 	insertProxyCountry         = `INSERT INTO country (created_at, country_name, country_code) VALUES ($1, $2, $3) returning country_id`
 	insertProxyItem            = `INSERT INTO proxy_service.public.proxy (created_at, updated_at, proxy_ip, proxy_port, country_id) 
 					VALUES ($1, $2, $3, $4, $5) returning proxy_id`
@@ -70,8 +75,15 @@ func (s Store) InsertProxyCountry(c *ProxyCountry) error {
 		c.CountryName, c.CountryCode).Scan(&c.CountryId)
 }
 
-func (s Store) GetNextProxyItem(item *ProxyItem) error {
-	return errors.New("Not implemented")
+func (s Store) GetNextProxyItem(p *ProxyItem) error {
+	row := s.db.QueryRow(context.Background(), getNextProxyItem)
+	var ip net.IP
+	err := row.Scan(&p.ProxyId, &ip, &p.ProxyPort)
+	if err != nil {
+		s.log.Error(err, row.Scan(types.Interface{}))
+	}
+	p.ProxyIp=ip.String()
+	return nil
 }
 
 func New(log *zap.SugaredLogger, db *pgx.Conn) *Store {

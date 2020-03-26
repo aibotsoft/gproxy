@@ -2,15 +2,19 @@ package gproxy_test
 
 import (
 	"github.com/aibotsoft/gproxy"
-	"github.com/aibotsoft/gproxy/internal/pg"
+	"github.com/aibotsoft/micro/config"
+	"github.com/aibotsoft/micro/postgres"
 	"github.com/stretchr/testify/assert"
+	"github.com/subosito/gotenv"
 	"testing"
 	"time"
 )
 
 func newServer(t *testing.T) *gproxy.Server {
 	t.Helper()
-	db, err := pg.New()
+	gotenv.Must(gotenv.Load)
+	cfg := config.New()
+	db, err := postgres.New(cfg)
 	assert.NoError(t, err)
 	server := gproxy.NewServer(db)
 	return server
@@ -18,7 +22,8 @@ func newServer(t *testing.T) *gproxy.Server {
 
 func TestNewServer(t *testing.T) {
 	var err error
-	db, err := pg.New()
+	cfg := config.New()
+	db, err := postgres.New(cfg)
 	assert.NoError(t, err)
 	server := gproxy.NewServer(db)
 	go func() {

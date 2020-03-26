@@ -3,20 +3,22 @@ package main
 import (
 	"fmt"
 	"github.com/aibotsoft/gproxy"
-	"github.com/aibotsoft/gproxy/internal/config"
-	"github.com/aibotsoft/gproxy/internal/pg"
+	"github.com/aibotsoft/micro/config"
 	"github.com/aibotsoft/micro/logger"
+	"github.com/aibotsoft/micro/postgres"
+	"github.com/subosito/gotenv"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
 func main() {
+	gotenv.Must(gotenv.Load)
 	log := logger.New()
 	cfg := config.New()
 	log.Info(cfg)
 
-	db, err := pg.New()
+	db, err := postgres.New(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
