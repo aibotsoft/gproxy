@@ -65,7 +65,9 @@ func (s Store) SelectProxyCountryIdByCode(c *ProxyCountry) error {
 	return s.db.QueryRow(context.Background(), selectProxyCountryIdByCode, c.CountryCode).Scan(&c.CountryId)
 }
 func (s Store) InsertProxyCountry(c *ProxyCountry) error {
-	return s.db.QueryRow(context.Background(), insertProxyCountry, c.CreatedAt, c.CountryName, c.CountryCode).Scan(&c.CountryId)
+	return s.db.QueryRow(context.Background(), insertProxyCountry,
+		MustTimestampOrNow(c.GetCreatedAt()),
+		c.CountryName, c.CountryCode).Scan(&c.CountryId)
 }
 
 func (s Store) GetNextProxyItem(item *ProxyItem) error {
