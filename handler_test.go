@@ -32,5 +32,4 @@ func TestServer_GetNextProxy(t *testing.T) {
 	if assert.NoError(t, err) {
 		assert.NotEmpty(t, got)
 	}
-
 }
