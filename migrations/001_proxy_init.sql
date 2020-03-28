@@ -42,8 +42,10 @@ create table if not exists stat
 
     constraint stat_pk primary key (stat_id),
     constraint stat_proxy_fk foreign key (proxy_id) references proxy on delete cascade,
-    constraint stat_user_fk foreign key (user_id) references proxy_user on delete cascade
+    constraint stat_user_fk foreign key (user_id) references proxy_user on delete cascade,
 );
+create index stat_proxy_id_index on stat (proxy_id);
+create index stat_created_at_index on stat (created_at);
 
 insert into country (country_id, country_code, country_name)
 values (1, default, default);
