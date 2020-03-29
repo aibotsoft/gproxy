@@ -6,6 +6,15 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func (s *Server) CreateProxyStat(ctx context.Context, req *CreateProxyStatRequest) (*CreateProxyStatResponse, error) {
+	proxyStat := req.GetProxyStat()
+	err := s.store.CreateProxyStat(proxyStat)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "CreateProxyStat: %v", err)
+	}
+	return &CreateProxyStatResponse{ProxyStat: proxyStat}, nil
+}
+
 func (s *Server) CreateProxy(ctx context.Context, req *CreateProxyRequest) (*CreateProxyResponse, error) {
 	s.log.Debug(req)
 	proxyItem := req.GetProxyItem()

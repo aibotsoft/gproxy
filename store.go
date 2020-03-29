@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 	"go/types"
 	"net"
+	"time"
 )
 
 type Store struct {
@@ -23,6 +24,9 @@ const (
 	getNextProxyItem          = `select proxy_id, proxy_ip, proxy_port from proxy_stat_view limit 1`
 
 	insertProxyCountry         = `INSERT INTO country (country_name, country_code) VALUES ($1, $2) returning country_id`
+
+	insertProxyStat        = `INSERT INTO stat (proxy_id, conn_time, conn_status) VALUES ($1, $2, $3) returning created_at`
+
 	insertProxyItem            = `INSERT INTO proxy_service.public.proxy (proxy_ip, proxy_port, country_id) VALUES ($1, $2, $3) returning proxy_id`
 )
 
@@ -79,6 +83,12 @@ func (s Store) GetNextProxyItem(p *ProxyItem) error {
 	}
 	p.ProxyIp=ip.String()
 	return nil
+}
+
+func (s Store) CreateProxyStat(stat *ProxyStat) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return s.db.QueryRow(ctx, insertProxyStat, stat.ProxyId, stat.ConnTime, stat.ConnStatus).Scan(&stat.CreatedAt)
 }
 
 func New(log *zap.SugaredLogger, db *pgx.Conn) *Store {
