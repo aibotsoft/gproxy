@@ -22,9 +22,8 @@ const (
 
 	getNextProxyItem          = `select proxy_id, proxy_ip, proxy_port from proxy_stat_view limit 1`
 
-	insertProxyCountry         = `INSERT INTO country (created_at, country_name, country_code) VALUES ($1, $2, $3) returning country_id`
-	insertProxyItem            = `INSERT INTO proxy_service.public.proxy (created_at, updated_at, proxy_ip, proxy_port, country_id) 
-					VALUES ($1, $2, $3, $4, $5) returning proxy_id`
+	insertProxyCountry         = `INSERT INTO country (country_name, country_code) VALUES ($1, $2) returning country_id`
+	insertProxyItem            = `INSERT INTO proxy_service.public.proxy (proxy_ip, proxy_port, country_id) VALUES ($1, $2, $3) returning proxy_id`
 )
 
 func (s Store) GetOrCreateProxyItem(p *ProxyItem) error {
@@ -48,8 +47,6 @@ func (s Store) GetOrCreateProxyItem(p *ProxyItem) error {
 
 func (s Store) InsertProxyItem(p *ProxyItem) error {
 	return s.db.QueryRow(context.Background(), insertProxyItem,
-		MustTimestampOrNow(p.GetCreatedAt()),
-		MustTimestampOrNow(p.GetUpdatedAt()),
 		p.ProxyIp, p.ProxyPort,
 		p.ProxyCountry.CountryId).Scan(&p.ProxyId)
 }
@@ -70,9 +67,7 @@ func (s Store) SelectProxyCountryIdByCode(c *ProxyCountry) error {
 	return s.db.QueryRow(context.Background(), selectProxyCountryIdByCode, c.CountryCode).Scan(&c.CountryId)
 }
 func (s Store) InsertProxyCountry(c *ProxyCountry) error {
-	return s.db.QueryRow(context.Background(), insertProxyCountry,
-		MustTimestampOrNow(c.GetCreatedAt()),
-		c.CountryName, c.CountryCode).Scan(&c.CountryId)
+	return s.db.QueryRow(context.Background(), insertProxyCountry, c.CountryName, c.CountryCode).Scan(&c.CountryId)
 }
 
 func (s Store) GetNextProxyItem(p *ProxyItem) error {

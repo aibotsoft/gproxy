@@ -8,7 +8,7 @@ import (
 	fmt "fmt"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	types "github.com/gogo/protobuf/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -273,10 +273,10 @@ func (m *CreateProxyResponse) GetProxyItem() *ProxyItem {
 }
 
 type ProxyCountry struct {
-	CountryId   int64                `protobuf:"varint,1,opt,name=country_id,json=countryId,proto3" json:"country_id,omitempty"`
-	CountryName string               `protobuf:"bytes,2,opt,name=country_name,json=countryName,proto3" json:"country_name,omitempty"`
-	CountryCode string               `protobuf:"bytes,3,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
-	CreatedAt   *timestamp.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CountryId   int64            `protobuf:"varint,1,opt,name=country_id,json=countryId,proto3" json:"country_id,omitempty"`
+	CountryName string           `protobuf:"bytes,2,opt,name=country_name,json=countryName,proto3" json:"country_name,omitempty"`
+	CountryCode string           `protobuf:"bytes,3,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	CreatedAt   *types.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 }
 
 func (m *ProxyCountry) Reset()      { *m = ProxyCountry{} }
@@ -332,7 +332,7 @@ func (m *ProxyCountry) GetCountryCode() string {
 	return ""
 }
 
-func (m *ProxyCountry) GetCreatedAt() *timestamp.Timestamp {
+func (m *ProxyCountry) GetCreatedAt() *types.Timestamp {
 	if m != nil {
 		return m.CreatedAt
 	}
@@ -340,11 +340,11 @@ func (m *ProxyCountry) GetCreatedAt() *timestamp.Timestamp {
 }
 
 type ProxyStat struct {
-	StatId     int64                `protobuf:"varint,1,opt,name=stat_id,json=statId,proto3" json:"stat_id,omitempty"`
-	ProxyId    int64                `protobuf:"varint,2,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
-	ConnTime   int64                `protobuf:"varint,3,opt,name=conn_time,json=connTime,proto3" json:"conn_time,omitempty"`
-	ConnStatus bool                 `protobuf:"varint,4,opt,name=conn_status,json=connStatus,proto3" json:"conn_status,omitempty"`
-	CreatedAt  *timestamp.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	StatId     int64            `protobuf:"varint,1,opt,name=stat_id,json=statId,proto3" json:"stat_id,omitempty"`
+	ProxyId    int64            `protobuf:"varint,2,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
+	ConnTime   int64            `protobuf:"varint,3,opt,name=conn_time,json=connTime,proto3" json:"conn_time,omitempty"`
+	ConnStatus bool             `protobuf:"varint,4,opt,name=conn_status,json=connStatus,proto3" json:"conn_status,omitempty"`
+	CreatedAt  *types.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 }
 
 func (m *ProxyStat) Reset()      { *m = ProxyStat{} }
@@ -407,7 +407,7 @@ func (m *ProxyStat) GetConnStatus() bool {
 	return false
 }
 
-func (m *ProxyStat) GetCreatedAt() *timestamp.Timestamp {
+func (m *ProxyStat) GetCreatedAt() *types.Timestamp {
 	if m != nil {
 		return m.CreatedAt
 	}
@@ -415,14 +415,14 @@ func (m *ProxyStat) GetCreatedAt() *timestamp.Timestamp {
 }
 
 type ProxyItem struct {
-	ProxyId      int64                `protobuf:"varint,1,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
-	ProxyIp      string               `protobuf:"bytes,2,opt,name=proxy_ip,json=proxyIp,proto3" json:"proxy_ip,omitempty"`
-	ProxyPort    int64                `protobuf:"varint,3,opt,name=proxy_port,json=proxyPort,proto3" json:"proxy_port,omitempty"`
-	Anonymity    string               `protobuf:"bytes,5,opt,name=anonymity,proto3" json:"anonymity,omitempty"`
-	ProxyCountry *ProxyCountry        `protobuf:"bytes,4,opt,name=proxy_country,json=proxyCountry,proto3" json:"proxy_country,omitempty"`
-	CreatedAt    *timestamp.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt    *timestamp.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	DeletedAt    *timestamp.Timestamp `protobuf:"bytes,8,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
+	ProxyId      int64            `protobuf:"varint,1,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
+	ProxyIp      string           `protobuf:"bytes,2,opt,name=proxy_ip,json=proxyIp,proto3" json:"proxy_ip,omitempty"`
+	ProxyPort    int64            `protobuf:"varint,3,opt,name=proxy_port,json=proxyPort,proto3" json:"proxy_port,omitempty"`
+	Anonymity    string           `protobuf:"bytes,5,opt,name=anonymity,proto3" json:"anonymity,omitempty"`
+	ProxyCountry *ProxyCountry    `protobuf:"bytes,4,opt,name=proxy_country,json=proxyCountry,proto3" json:"proxy_country,omitempty"`
+	CreatedAt    *types.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt    *types.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	DeletedAt    *types.Timestamp `protobuf:"bytes,8,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
 }
 
 func (m *ProxyItem) Reset()      { *m = ProxyItem{} }
@@ -492,21 +492,21 @@ func (m *ProxyItem) GetProxyCountry() *ProxyCountry {
 	return nil
 }
 
-func (m *ProxyItem) GetCreatedAt() *timestamp.Timestamp {
+func (m *ProxyItem) GetCreatedAt() *types.Timestamp {
 	if m != nil {
 		return m.CreatedAt
 	}
 	return nil
 }
 
-func (m *ProxyItem) GetUpdatedAt() *timestamp.Timestamp {
+func (m *ProxyItem) GetUpdatedAt() *types.Timestamp {
 	if m != nil {
 		return m.UpdatedAt
 	}
 	return nil
 }
 
-func (m *ProxyItem) GetDeletedAt() *timestamp.Timestamp {
+func (m *ProxyItem) GetDeletedAt() *types.Timestamp {
 	if m != nil {
 		return m.DeletedAt
 	}
@@ -528,7 +528,7 @@ func init() {
 func init() { proto.RegisterFile("proxy.proto", fileDescriptor_700b50b08ed8dbaf) }
 
 var fileDescriptor_700b50b08ed8dbaf = []byte{
-	// 589 bytes of a gzipped FileDescriptorProto
+	// 588 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xbf, 0x6f, 0xd3, 0x40,
 	0x14, 0xf6, 0x35, 0x34, 0x89, 0x5f, 0xc2, 0xc0, 0xb5, 0x88, 0xe0, 0x96, 0x6b, 0xc9, 0xd4, 0x05,
 	0x07, 0x95, 0x85, 0x8e, 0x6d, 0x24, 0xda, 0x08, 0xa9, 0xaa, 0x5c, 0x26, 0x96, 0xc8, 0x89, 0x0f,
@@ -562,12 +562,264 @@ var fileDescriptor_700b50b08ed8dbaf = []byte{
 	0xfa, 0x2b, 0xd8, 0x2a, 0x6e, 0x7b, 0xf7, 0x23, 0x5a, 0x5b, 0x4b, 0x63, 0xea, 0x73, 0x75, 0x0d,
 	0xfc, 0x1e, 0xda, 0xe5, 0x41, 0x83, 0x6f, 0xe9, 0x4b, 0xa6, 0x92, 0xb5, 0xbd, 0x3c, 0xb8, 0x20,
 	0x76, 0x3b, 0x54, 0x2a, 0x62, 0x8b, 0x13, 0xa8, 0x22, 0x76, 0x67, 0x0e, 0x75, 0x8d, 0xa3, 0xb7,
-	0x37, 0x53, 0x62, 0xfc, 0x9d, 0x12, 0xf4, 0x6f, 0x4a, 0xd0, 0xd7, 0x9c, 0xa0, 0xef, 0x39, 0x31,
-	0xae, 0x72, 0x62, 0xfc, 0xcc, 0x09, 0xba, 0xce, 0x09, 0xfa, 0x95, 0x13, 0xf4, 0x6d, 0x46, 0x8c,
-	0xeb, 0x19, 0x31, 0x6e, 0x66, 0xc4, 0xf8, 0xa8, 0x67, 0xf4, 0xa8, 0x2e, 0xcb, 0xf8, 0xe6, 0x7f,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x67, 0xd8, 0x21, 0xcb, 0xc1, 0x05, 0x00, 0x00,
+	0x37, 0x53, 0x62, 0xfc, 0x9d, 0x12, 0xf4, 0x6f, 0x4a, 0xd0, 0xd7, 0x9c, 0xa0, 0xef, 0x39, 0x41,
+	0x57, 0x39, 0x41, 0x3f, 0x73, 0x82, 0xae, 0x73, 0x82, 0x7e, 0xe5, 0x04, 0x7d, 0x9b, 0x11, 0xe3,
+	0x7a, 0x46, 0x8c, 0x9b, 0x19, 0x31, 0x3e, 0xea, 0x19, 0x3d, 0xaa, 0xcb, 0x32, 0xbe, 0xf9, 0x1f,
+	0x00, 0x00, 0xff, 0xff, 0x8a, 0x60, 0xa0, 0x80, 0xc1, 0x05, 0x00, 0x00,
 }
 
+func (this *GetNextProxyRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*GetNextProxyRequest)
+	if !ok {
+		that2, ok := that.(GetNextProxyRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	return true
+}
+func (this *GetNextProxyResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*GetNextProxyResponse)
+	if !ok {
+		that2, ok := that.(GetNextProxyResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyItem.Equal(that1.ProxyItem) {
+		return false
+	}
+	return true
+}
+func (this *GetBestProxyRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*GetBestProxyRequest)
+	if !ok {
+		that2, ok := that.(GetBestProxyRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	return true
+}
+func (this *GetBestProxyResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*GetBestProxyResponse)
+	if !ok {
+		that2, ok := that.(GetBestProxyResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyItem.Equal(that1.ProxyItem) {
+		return false
+	}
+	return true
+}
+func (this *CreateProxyRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*CreateProxyRequest)
+	if !ok {
+		that2, ok := that.(CreateProxyRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyItem.Equal(that1.ProxyItem) {
+		return false
+	}
+	return true
+}
+func (this *CreateProxyResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*CreateProxyResponse)
+	if !ok {
+		that2, ok := that.(CreateProxyResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyItem.Equal(that1.ProxyItem) {
+		return false
+	}
+	return true
+}
+func (this *ProxyCountry) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProxyCountry)
+	if !ok {
+		that2, ok := that.(ProxyCountry)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.CountryId != that1.CountryId {
+		return false
+	}
+	if this.CountryName != that1.CountryName {
+		return false
+	}
+	if this.CountryCode != that1.CountryCode {
+		return false
+	}
+	if !this.CreatedAt.Equal(that1.CreatedAt) {
+		return false
+	}
+	return true
+}
+func (this *ProxyStat) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProxyStat)
+	if !ok {
+		that2, ok := that.(ProxyStat)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.StatId != that1.StatId {
+		return false
+	}
+	if this.ProxyId != that1.ProxyId {
+		return false
+	}
+	if this.ConnTime != that1.ConnTime {
+		return false
+	}
+	if this.ConnStatus != that1.ConnStatus {
+		return false
+	}
+	if !this.CreatedAt.Equal(that1.CreatedAt) {
+		return false
+	}
+	return true
+}
+func (this *ProxyItem) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProxyItem)
+	if !ok {
+		that2, ok := that.(ProxyItem)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.ProxyId != that1.ProxyId {
+		return false
+	}
+	if this.ProxyIp != that1.ProxyIp {
+		return false
+	}
+	if this.ProxyPort != that1.ProxyPort {
+		return false
+	}
+	if this.Anonymity != that1.Anonymity {
+		return false
+	}
+	if !this.ProxyCountry.Equal(that1.ProxyCountry) {
+		return false
+	}
+	if !this.CreatedAt.Equal(that1.CreatedAt) {
+		return false
+	}
+	if !this.UpdatedAt.Equal(that1.UpdatedAt) {
+		return false
+	}
+	if !this.DeletedAt.Equal(that1.DeletedAt) {
+		return false
+	}
+	return true
+}
 func (this *GetNextProxyRequest) GoString() string {
 	if this == nil {
 		return "nil"
@@ -1320,7 +1572,7 @@ func NewPopulatedProxyCountry(r randyProxy, easy bool) *ProxyCountry {
 	this.CountryName = string(randStringProxy(r))
 	this.CountryCode = string(randStringProxy(r))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = timestamp.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1343,7 +1595,7 @@ func NewPopulatedProxyStat(r randyProxy, easy bool) *ProxyStat {
 	}
 	this.ConnStatus = bool(bool(r.Intn(2) == 0))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = timestamp.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1366,13 +1618,13 @@ func NewPopulatedProxyItem(r randyProxy, easy bool) *ProxyItem {
 	}
 	this.Anonymity = string(randStringProxy(r))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = timestamp.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
 	}
 	if r.Intn(5) != 0 {
-		this.UpdatedAt = timestamp.NewPopulatedTimestamp(r, easy)
+		this.UpdatedAt = types.NewPopulatedTimestamp(r, easy)
 	}
 	if r.Intn(5) != 0 {
-		this.DeletedAt = timestamp.NewPopulatedTimestamp(r, easy)
+		this.DeletedAt = types.NewPopulatedTimestamp(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1681,7 +1933,7 @@ func (this *ProxyCountry) String() string {
 		`CountryId:` + fmt.Sprintf("%v", this.CountryId) + `,`,
 		`CountryName:` + fmt.Sprintf("%v", this.CountryName) + `,`,
 		`CountryCode:` + fmt.Sprintf("%v", this.CountryCode) + `,`,
-		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "timestamp.Timestamp", 1) + `,`,
+		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "types.Timestamp", 1) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -1695,7 +1947,7 @@ func (this *ProxyStat) String() string {
 		`ProxyId:` + fmt.Sprintf("%v", this.ProxyId) + `,`,
 		`ConnTime:` + fmt.Sprintf("%v", this.ConnTime) + `,`,
 		`ConnStatus:` + fmt.Sprintf("%v", this.ConnStatus) + `,`,
-		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "timestamp.Timestamp", 1) + `,`,
+		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "types.Timestamp", 1) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -1710,9 +1962,9 @@ func (this *ProxyItem) String() string {
 		`ProxyPort:` + fmt.Sprintf("%v", this.ProxyPort) + `,`,
 		`ProxyCountry:` + strings.Replace(this.ProxyCountry.String(), "ProxyCountry", "ProxyCountry", 1) + `,`,
 		`Anonymity:` + fmt.Sprintf("%v", this.Anonymity) + `,`,
-		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "timestamp.Timestamp", 1) + `,`,
-		`UpdatedAt:` + strings.Replace(fmt.Sprintf("%v", this.UpdatedAt), "Timestamp", "timestamp.Timestamp", 1) + `,`,
-		`DeletedAt:` + strings.Replace(fmt.Sprintf("%v", this.DeletedAt), "Timestamp", "timestamp.Timestamp", 1) + `,`,
+		`CreatedAt:` + strings.Replace(fmt.Sprintf("%v", this.CreatedAt), "Timestamp", "types.Timestamp", 1) + `,`,
+		`UpdatedAt:` + strings.Replace(fmt.Sprintf("%v", this.UpdatedAt), "Timestamp", "types.Timestamp", 1) + `,`,
+		`DeletedAt:` + strings.Replace(fmt.Sprintf("%v", this.DeletedAt), "Timestamp", "types.Timestamp", 1) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -2329,7 +2581,7 @@ func (m *ProxyCountry) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &timestamp.Timestamp{}
+				m.CreatedAt = &types.Timestamp{}
 			}
 			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2495,7 +2747,7 @@ func (m *ProxyStat) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &timestamp.Timestamp{}
+				m.CreatedAt = &types.Timestamp{}
 			}
 			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2722,7 +2974,7 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &timestamp.Timestamp{}
+				m.CreatedAt = &types.Timestamp{}
 			}
 			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2758,7 +3010,7 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.UpdatedAt == nil {
-				m.UpdatedAt = &timestamp.Timestamp{}
+				m.UpdatedAt = &types.Timestamp{}
 			}
 			if err := m.UpdatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2794,7 +3046,7 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.DeletedAt == nil {
-				m.DeletedAt = &timestamp.Timestamp{}
+				m.DeletedAt = &types.Timestamp{}
 			}
 			if err := m.DeletedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err

@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
+//import "github.com/gogo/protobuf/types/timestamp.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 package gproxy;
@@ -15,8 +16,8 @@ option (gogoproto.populate_all) = true;
 option (gogoproto.goproto_unrecognized_all) = false;
 option (gogoproto.goproto_unkeyed_all) = false;
 option (gogoproto.goproto_sizecache_all) = false;
-option (gogoproto.equal_all) = false;
-option (gogoproto.testgen_all) = false;
+option (gogoproto.equal_all) = true;
+option (gogoproto.testgen_all) = true;
 
 
 service Proxy {
