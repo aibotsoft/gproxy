@@ -1,13 +1,11 @@
 package gproxy
 
 import (
-	"context"
 	"github.com/aibotsoft/micro/logger"
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"net"
-	"time"
 )
 
 const (
@@ -21,7 +19,7 @@ type Server struct {
 	UnimplementedProxyServer
 }
 
-func NewServer(db *pgx.Conn) *Server {
+func NewServer(db *pgxpool.Pool) *Server {
 	log := logger.New()
 	return &Server{
 		log:   log,
@@ -32,13 +30,8 @@ func NewServer(db *pgx.Conn) *Server {
 
 func (s *Server) GracefulStop() {
 	s.log.Debug("begin proxy server gracefulStop")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
 	s.gs.GracefulStop()
-	err := s.store.db.Close(ctx)
-	if err != nil {
-		s.log.Error(err)
-	}
+	s.store.db.Close()
 	s.log.Debug("end proxy server gracefulStop")
 }
 

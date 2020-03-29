@@ -18,10 +18,7 @@ func main() {
 	cfg := config.New()
 	log.Info(cfg)
 
-	db, err := postgres.New(cfg)
-	if err != nil {
-		log.Fatal(err)
-	}
+	db := postgres.MustConnect(cfg)
 	errc := make(chan error)
 	go func() {
 		c := make(chan os.Signal)
