@@ -26,11 +26,10 @@ const (
 	insertProxyCountry         = `INSERT INTO country (country_name, country_code) VALUES ($1, $2) returning country_id`
 
 	insertProxyStat        = `INSERT INTO stat (proxy_id, conn_time, conn_status) VALUES ($1, $2, $3) returning created_at`
-
 	insertProxyItem            = `INSERT INTO proxy_service.public.proxy (proxy_ip, proxy_port, country_id) VALUES ($1, $2, $3) returning proxy_id`
 )
 
-func (s Store) GetOrCreateProxyItem(p *ProxyItem) error {
+func (s *Store) GetOrCreateProxyItem(p *ProxyItem) error {
 	s.log.Debug("GetOrCreateProxyItem: ", p)
 	// Ищем прокси в базе, если есть сразу возвращаем
 	err := s.SelectProxyIdByUI(p)
@@ -49,13 +48,13 @@ func (s Store) GetOrCreateProxyItem(p *ProxyItem) error {
 	return nil
 }
 
-func (s Store) InsertProxyItem(p *ProxyItem) error {
+func (s *Store) InsertProxyItem(p *ProxyItem) error {
 	return s.db.QueryRow(context.Background(), insertProxyItem,
 		p.ProxyIp, p.ProxyPort,
 		p.ProxyCountry.CountryId).Scan(&p.ProxyId)
 }
 
-func (s Store) GetOrCreateProxyCountry(c *ProxyCountry) error {
+func (s *Store) GetOrCreateProxyCountry(c *ProxyCountry) error {
 	err := s.SelectProxyCountryIdByCode(c)
 	if err == pgx.ErrNoRows {
 		return s.InsertProxyCountry(c)
@@ -63,18 +62,18 @@ func (s Store) GetOrCreateProxyCountry(c *ProxyCountry) error {
 	return err
 }
 
-func (s Store) SelectProxyIdByUI(p *ProxyItem) error {
+func (s *Store) SelectProxyIdByUI(p *ProxyItem) error {
 	return s.db.QueryRow(context.Background(), selectProxyIdByUI, p.ProxyIp, p.ProxyPort).Scan(&p.ProxyId)
 }
 
-func (s Store) SelectProxyCountryIdByCode(c *ProxyCountry) error {
+func (s *Store) SelectProxyCountryIdByCode(c *ProxyCountry) error {
 	return s.db.QueryRow(context.Background(), selectProxyCountryIdByCode, c.CountryCode).Scan(&c.CountryId)
 }
-func (s Store) InsertProxyCountry(c *ProxyCountry) error {
+func (s *Store) InsertProxyCountry(c *ProxyCountry) error {
 	return s.db.QueryRow(context.Background(), insertProxyCountry, c.CountryName, c.CountryCode).Scan(&c.CountryId)
 }
 
-func (s Store) GetNextProxyItem(p *ProxyItem) error {
+func (s *Store) GetNextProxyItem(p *ProxyItem) error {
 	row := s.db.QueryRow(context.Background(), getNextProxyItem)
 	var ip net.IP
 	err := row.Scan(&p.ProxyId, &ip, &p.ProxyPort)
@@ -85,7 +84,7 @@ func (s Store) GetNextProxyItem(p *ProxyItem) error {
 	return nil
 }
 
-func (s Store) CreateProxyStat(stat *ProxyStat) error {
+func (s *Store) CreateProxyStat(stat *ProxyStat) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	return s.db.QueryRow(ctx, insertProxyStat, stat.ProxyId, stat.ConnTime, stat.ConnStatus).Scan(&stat.CreatedAt)
