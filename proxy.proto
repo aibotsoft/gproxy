@@ -23,6 +23,8 @@ option (gogoproto.testgen_all) = true;
 service Proxy {
     rpc CreateProxy (CreateProxyRequest) returns (CreateProxyResponse) {
     }
+    rpc CreateProxyStat (CreateProxyStatRequest) returns (CreateProxyStatResponse) {
+    }
     rpc GetNextProxy (GetNextProxyRequest) returns (GetNextProxyResponse) {
     }
     rpc GetBestProxy (GetBestProxyRequest) returns (GetBestProxyResponse) {
@@ -31,6 +33,12 @@ service Proxy {
 //    }
 }
 
+message CreateProxyStatRequest {
+    ProxyStat proxy_stat = 1;
+}
+message CreateProxyStatResponse {
+    ProxyStat proxy_stat = 1;
+}
 message GetNextProxyRequest {
 }
 message GetNextProxyResponse {
@@ -52,15 +60,17 @@ message ProxyCountry {
     int64 country_id = 1;
     string country_name = 2;
     string country_code = 3;
-    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp created_at = 4 [(gogoproto.stdtime) = true];
 }
 
 message ProxyStat {
-    int64 stat_id = 1;
+//    Удалил бывший PK
+//    int64 stat_id = 1;
     int64 proxy_id = 2;
     int64 conn_time = 3;
     bool conn_status = 4;
-    google.protobuf.Timestamp created_at = 5;
+//    Новый PK
+    google.protobuf.Timestamp created_at = 5 [(gogoproto.stdtime) = true];
 }
 
 message ProxyItem {
@@ -69,7 +79,7 @@ message ProxyItem {
     int64 proxy_port = 3;
     string anonymity = 5;
     ProxyCountry proxy_country = 4;
-    google.protobuf.Timestamp created_at = 6;
-    google.protobuf.Timestamp updated_at = 7;
-    google.protobuf.Timestamp deleted_at = 8;
+    google.protobuf.Timestamp created_at = 6 [(gogoproto.stdtime) = true];
+    google.protobuf.Timestamp updated_at = 7 [(gogoproto.stdtime) = true];
+    google.protobuf.Timestamp deleted_at = 8 [(gogoproto.stdtime) = true];
 }

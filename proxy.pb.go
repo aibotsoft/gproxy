@@ -8,7 +8,8 @@ import (
 	fmt "fmt"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
-	types "github.com/gogo/protobuf/types"
+	_ "github.com/gogo/protobuf/types"
+	github_com_gogo_protobuf_types "github.com/gogo/protobuf/types"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -17,12 +18,14 @@ import (
 	math_bits "math/bits"
 	reflect "reflect"
 	strings "strings"
+	time "time"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
+var _ = time.Kitchen
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
@@ -30,13 +33,99 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type CreateProxyStatRequest struct {
+	ProxyStat *ProxyStat `protobuf:"bytes,1,opt,name=proxy_stat,json=proxyStat,proto3" json:"proxy_stat,omitempty"`
+}
+
+func (m *CreateProxyStatRequest) Reset()      { *m = CreateProxyStatRequest{} }
+func (*CreateProxyStatRequest) ProtoMessage() {}
+func (*CreateProxyStatRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_700b50b08ed8dbaf, []int{0}
+}
+func (m *CreateProxyStatRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateProxyStatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateProxyStatRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateProxyStatRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateProxyStatRequest.Merge(m, src)
+}
+func (m *CreateProxyStatRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateProxyStatRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateProxyStatRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateProxyStatRequest proto.InternalMessageInfo
+
+func (m *CreateProxyStatRequest) GetProxyStat() *ProxyStat {
+	if m != nil {
+		return m.ProxyStat
+	}
+	return nil
+}
+
+type CreateProxyStatResponse struct {
+	ProxyStat *ProxyStat `protobuf:"bytes,1,opt,name=proxy_stat,json=proxyStat,proto3" json:"proxy_stat,omitempty"`
+}
+
+func (m *CreateProxyStatResponse) Reset()      { *m = CreateProxyStatResponse{} }
+func (*CreateProxyStatResponse) ProtoMessage() {}
+func (*CreateProxyStatResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_700b50b08ed8dbaf, []int{1}
+}
+func (m *CreateProxyStatResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateProxyStatResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateProxyStatResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateProxyStatResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateProxyStatResponse.Merge(m, src)
+}
+func (m *CreateProxyStatResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateProxyStatResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateProxyStatResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateProxyStatResponse proto.InternalMessageInfo
+
+func (m *CreateProxyStatResponse) GetProxyStat() *ProxyStat {
+	if m != nil {
+		return m.ProxyStat
+	}
+	return nil
+}
+
 type GetNextProxyRequest struct {
 }
 
 func (m *GetNextProxyRequest) Reset()      { *m = GetNextProxyRequest{} }
 func (*GetNextProxyRequest) ProtoMessage() {}
 func (*GetNextProxyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{0}
+	return fileDescriptor_700b50b08ed8dbaf, []int{2}
 }
 func (m *GetNextProxyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -72,7 +161,7 @@ type GetNextProxyResponse struct {
 func (m *GetNextProxyResponse) Reset()      { *m = GetNextProxyResponse{} }
 func (*GetNextProxyResponse) ProtoMessage() {}
 func (*GetNextProxyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{1}
+	return fileDescriptor_700b50b08ed8dbaf, []int{3}
 }
 func (m *GetNextProxyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -114,7 +203,7 @@ type GetBestProxyRequest struct {
 func (m *GetBestProxyRequest) Reset()      { *m = GetBestProxyRequest{} }
 func (*GetBestProxyRequest) ProtoMessage() {}
 func (*GetBestProxyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{2}
+	return fileDescriptor_700b50b08ed8dbaf, []int{4}
 }
 func (m *GetBestProxyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -150,7 +239,7 @@ type GetBestProxyResponse struct {
 func (m *GetBestProxyResponse) Reset()      { *m = GetBestProxyResponse{} }
 func (*GetBestProxyResponse) ProtoMessage() {}
 func (*GetBestProxyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{3}
+	return fileDescriptor_700b50b08ed8dbaf, []int{5}
 }
 func (m *GetBestProxyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -193,7 +282,7 @@ type CreateProxyRequest struct {
 func (m *CreateProxyRequest) Reset()      { *m = CreateProxyRequest{} }
 func (*CreateProxyRequest) ProtoMessage() {}
 func (*CreateProxyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{4}
+	return fileDescriptor_700b50b08ed8dbaf, []int{6}
 }
 func (m *CreateProxyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -236,7 +325,7 @@ type CreateProxyResponse struct {
 func (m *CreateProxyResponse) Reset()      { *m = CreateProxyResponse{} }
 func (*CreateProxyResponse) ProtoMessage() {}
 func (*CreateProxyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{5}
+	return fileDescriptor_700b50b08ed8dbaf, []int{7}
 }
 func (m *CreateProxyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -273,16 +362,16 @@ func (m *CreateProxyResponse) GetProxyItem() *ProxyItem {
 }
 
 type ProxyCountry struct {
-	CountryId   int64            `protobuf:"varint,1,opt,name=country_id,json=countryId,proto3" json:"country_id,omitempty"`
-	CountryName string           `protobuf:"bytes,2,opt,name=country_name,json=countryName,proto3" json:"country_name,omitempty"`
-	CountryCode string           `protobuf:"bytes,3,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
-	CreatedAt   *types.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CountryId   int64      `protobuf:"varint,1,opt,name=country_id,json=countryId,proto3" json:"country_id,omitempty"`
+	CountryName string     `protobuf:"bytes,2,opt,name=country_name,json=countryName,proto3" json:"country_name,omitempty"`
+	CountryCode string     `protobuf:"bytes,3,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	CreatedAt   *time.Time `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3,stdtime" json:"created_at,omitempty"`
 }
 
 func (m *ProxyCountry) Reset()      { *m = ProxyCountry{} }
 func (*ProxyCountry) ProtoMessage() {}
 func (*ProxyCountry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{6}
+	return fileDescriptor_700b50b08ed8dbaf, []int{8}
 }
 func (m *ProxyCountry) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -332,7 +421,7 @@ func (m *ProxyCountry) GetCountryCode() string {
 	return ""
 }
 
-func (m *ProxyCountry) GetCreatedAt() *types.Timestamp {
+func (m *ProxyCountry) GetCreatedAt() *time.Time {
 	if m != nil {
 		return m.CreatedAt
 	}
@@ -340,17 +429,19 @@ func (m *ProxyCountry) GetCreatedAt() *types.Timestamp {
 }
 
 type ProxyStat struct {
-	StatId     int64            `protobuf:"varint,1,opt,name=stat_id,json=statId,proto3" json:"stat_id,omitempty"`
-	ProxyId    int64            `protobuf:"varint,2,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
-	ConnTime   int64            `protobuf:"varint,3,opt,name=conn_time,json=connTime,proto3" json:"conn_time,omitempty"`
-	ConnStatus bool             `protobuf:"varint,4,opt,name=conn_status,json=connStatus,proto3" json:"conn_status,omitempty"`
-	CreatedAt  *types.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	//    Удалил бывший PK
+	//    int64 stat_id = 1;
+	ProxyId    int64 `protobuf:"varint,2,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
+	ConnTime   int64 `protobuf:"varint,3,opt,name=conn_time,json=connTime,proto3" json:"conn_time,omitempty"`
+	ConnStatus bool  `protobuf:"varint,4,opt,name=conn_status,json=connStatus,proto3" json:"conn_status,omitempty"`
+	//    Новый PK
+	CreatedAt *time.Time `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3,stdtime" json:"created_at,omitempty"`
 }
 
 func (m *ProxyStat) Reset()      { *m = ProxyStat{} }
 func (*ProxyStat) ProtoMessage() {}
 func (*ProxyStat) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{7}
+	return fileDescriptor_700b50b08ed8dbaf, []int{9}
 }
 func (m *ProxyStat) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -379,13 +470,6 @@ func (m *ProxyStat) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ProxyStat proto.InternalMessageInfo
 
-func (m *ProxyStat) GetStatId() int64 {
-	if m != nil {
-		return m.StatId
-	}
-	return 0
-}
-
 func (m *ProxyStat) GetProxyId() int64 {
 	if m != nil {
 		return m.ProxyId
@@ -407,7 +491,7 @@ func (m *ProxyStat) GetConnStatus() bool {
 	return false
 }
 
-func (m *ProxyStat) GetCreatedAt() *types.Timestamp {
+func (m *ProxyStat) GetCreatedAt() *time.Time {
 	if m != nil {
 		return m.CreatedAt
 	}
@@ -415,20 +499,20 @@ func (m *ProxyStat) GetCreatedAt() *types.Timestamp {
 }
 
 type ProxyItem struct {
-	ProxyId      int64            `protobuf:"varint,1,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
-	ProxyIp      string           `protobuf:"bytes,2,opt,name=proxy_ip,json=proxyIp,proto3" json:"proxy_ip,omitempty"`
-	ProxyPort    int64            `protobuf:"varint,3,opt,name=proxy_port,json=proxyPort,proto3" json:"proxy_port,omitempty"`
-	Anonymity    string           `protobuf:"bytes,5,opt,name=anonymity,proto3" json:"anonymity,omitempty"`
-	ProxyCountry *ProxyCountry    `protobuf:"bytes,4,opt,name=proxy_country,json=proxyCountry,proto3" json:"proxy_country,omitempty"`
-	CreatedAt    *types.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt    *types.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	DeletedAt    *types.Timestamp `protobuf:"bytes,8,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
+	ProxyId      int64         `protobuf:"varint,1,opt,name=proxy_id,json=proxyId,proto3" json:"proxy_id,omitempty"`
+	ProxyIp      string        `protobuf:"bytes,2,opt,name=proxy_ip,json=proxyIp,proto3" json:"proxy_ip,omitempty"`
+	ProxyPort    int64         `protobuf:"varint,3,opt,name=proxy_port,json=proxyPort,proto3" json:"proxy_port,omitempty"`
+	Anonymity    string        `protobuf:"bytes,5,opt,name=anonymity,proto3" json:"anonymity,omitempty"`
+	ProxyCountry *ProxyCountry `protobuf:"bytes,4,opt,name=proxy_country,json=proxyCountry,proto3" json:"proxy_country,omitempty"`
+	CreatedAt    *time.Time    `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3,stdtime" json:"created_at,omitempty"`
+	UpdatedAt    *time.Time    `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3,stdtime" json:"updated_at,omitempty"`
+	DeletedAt    *time.Time    `protobuf:"bytes,8,opt,name=deleted_at,json=deletedAt,proto3,stdtime" json:"deleted_at,omitempty"`
 }
 
 func (m *ProxyItem) Reset()      { *m = ProxyItem{} }
 func (*ProxyItem) ProtoMessage() {}
 func (*ProxyItem) Descriptor() ([]byte, []int) {
-	return fileDescriptor_700b50b08ed8dbaf, []int{8}
+	return fileDescriptor_700b50b08ed8dbaf, []int{10}
 }
 func (m *ProxyItem) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -492,21 +576,21 @@ func (m *ProxyItem) GetProxyCountry() *ProxyCountry {
 	return nil
 }
 
-func (m *ProxyItem) GetCreatedAt() *types.Timestamp {
+func (m *ProxyItem) GetCreatedAt() *time.Time {
 	if m != nil {
 		return m.CreatedAt
 	}
 	return nil
 }
 
-func (m *ProxyItem) GetUpdatedAt() *types.Timestamp {
+func (m *ProxyItem) GetUpdatedAt() *time.Time {
 	if m != nil {
 		return m.UpdatedAt
 	}
 	return nil
 }
 
-func (m *ProxyItem) GetDeletedAt() *types.Timestamp {
+func (m *ProxyItem) GetDeletedAt() *time.Time {
 	if m != nil {
 		return m.DeletedAt
 	}
@@ -514,6 +598,8 @@ func (m *ProxyItem) GetDeletedAt() *types.Timestamp {
 }
 
 func init() {
+	proto.RegisterType((*CreateProxyStatRequest)(nil), "gproxy.CreateProxyStatRequest")
+	proto.RegisterType((*CreateProxyStatResponse)(nil), "gproxy.CreateProxyStatResponse")
 	proto.RegisterType((*GetNextProxyRequest)(nil), "gproxy.GetNextProxyRequest")
 	proto.RegisterType((*GetNextProxyResponse)(nil), "gproxy.GetNextProxyResponse")
 	proto.RegisterType((*GetBestProxyRequest)(nil), "gproxy.GetBestProxyRequest")
@@ -528,46 +614,97 @@ func init() {
 func init() { proto.RegisterFile("proxy.proto", fileDescriptor_700b50b08ed8dbaf) }
 
 var fileDescriptor_700b50b08ed8dbaf = []byte{
-	// 588 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xbf, 0x6f, 0xd3, 0x40,
-	0x14, 0xf6, 0x35, 0x34, 0x89, 0x5f, 0xc2, 0xc0, 0xb5, 0x88, 0xe0, 0x96, 0x6b, 0xc9, 0xd4, 0x05,
-	0x07, 0x95, 0x85, 0x8e, 0x6d, 0x24, 0xda, 0x08, 0xa9, 0xaa, 0x5c, 0x26, 0x96, 0xc8, 0x89, 0x0f,
-	0x63, 0xa9, 0xf6, 0x19, 0xfb, 0x2c, 0x35, 0x1b, 0x7f, 0x02, 0x7f, 0x06, 0x13, 0x73, 0xff, 0x04,
-	0xc6, 0x8e, 0x1d, 0x89, 0xb3, 0xc1, 0xc2, 0xc8, 0x88, 0xee, 0x87, 0x1b, 0x3b, 0x8d, 0x54, 0x35,
-	0xdb, 0xdd, 0xf7, 0xbe, 0xf7, 0xdd, 0x77, 0xef, 0xde, 0x3d, 0x68, 0xc5, 0x09, 0xbb, 0x9c, 0xd8,
-	0x71, 0xc2, 0x38, 0xc3, 0x75, 0x5f, 0xee, 0xac, 0x1d, 0x9f, 0x31, 0xff, 0x82, 0xf6, 0x24, 0x3a,
-	0xca, 0x3e, 0xf5, 0x78, 0x10, 0xd2, 0x94, 0xbb, 0x61, 0xac, 0x88, 0xd6, 0x2b, 0x3f, 0xe0, 0x9f,
-	0xb3, 0x91, 0x3d, 0x66, 0x61, 0xcf, 0x67, 0x3e, 0x9b, 0x33, 0xc5, 0x4e, 0x6e, 0xe4, 0x4a, 0xd1,
-	0xbb, 0x4f, 0x61, 0xe3, 0x98, 0xf2, 0x53, 0x7a, 0xc9, 0xcf, 0x84, 0xbe, 0x43, 0xbf, 0x64, 0x34,
-	0xe5, 0xdd, 0x13, 0xd8, 0xac, 0xc2, 0x69, 0xcc, 0xa2, 0x94, 0xe2, 0xd7, 0x00, 0xd2, 0xc7, 0x30,
-	0xe0, 0x34, 0xec, 0xa0, 0x5d, 0xb4, 0xd7, 0xda, 0x7f, 0x62, 0x2b, 0x6f, 0xb6, 0xa4, 0x0e, 0x38,
-	0x0d, 0x1d, 0x33, 0x2e, 0x96, 0xfa, 0x80, 0x23, 0x9a, 0x2e, 0x3b, 0xa0, 0x04, 0xaf, 0x7c, 0xc0,
-	0x3b, 0xc0, 0xfd, 0x84, 0xba, 0x9c, 0x96, 0xf5, 0x57, 0xd0, 0x39, 0x86, 0x8d, 0x8a, 0xce, 0xca,
-	0x86, 0x7e, 0x20, 0x68, 0xcb, 0x40, 0x9f, 0x65, 0x11, 0x4f, 0x26, 0xf8, 0x05, 0xc0, 0x58, 0x2d,
-	0x87, 0x81, 0x27, 0x25, 0x6a, 0x8e, 0xa9, 0x91, 0x81, 0x87, 0x5f, 0x42, 0xbb, 0x08, 0x47, 0x6e,
-	0x48, 0x3b, 0x6b, 0xbb, 0x68, 0xcf, 0x74, 0x5a, 0x1a, 0x3b, 0x75, 0x43, 0x5a, 0xa6, 0x8c, 0x99,
-	0x47, 0x3b, 0xb5, 0x0a, 0xa5, 0xcf, 0x3c, 0x8a, 0x0f, 0x00, 0xc6, 0xd2, 0xbe, 0x37, 0x74, 0x79,
-	0xe7, 0x91, 0xf4, 0x69, 0xd9, 0xaa, 0x5b, 0xec, 0xa2, 0x07, 0xec, 0x0f, 0x45, 0xb7, 0x38, 0xa6,
-	0x66, 0x1f, 0xf2, 0xee, 0x15, 0x02, 0x53, 0x1a, 0x3e, 0xe7, 0x2e, 0xc7, 0xcf, 0xa0, 0x91, 0x72,
-	0x97, 0xcf, 0xad, 0xd6, 0xc5, 0x76, 0xe0, 0xe1, 0xe7, 0xd0, 0xd4, 0x95, 0xf0, 0xa4, 0xc7, 0x9a,
-	0xd3, 0x50, 0x97, 0xf6, 0xf0, 0x16, 0x98, 0x63, 0x16, 0x45, 0x43, 0xd1, 0x8c, 0xd2, 0x5c, 0xcd,
-	0x69, 0x0a, 0x40, 0x1c, 0x87, 0x77, 0xa0, 0x25, 0x83, 0x42, 0x26, 0x4b, 0xa5, 0xb5, 0xa6, 0x03,
-	0x02, 0x3a, 0x97, 0xc8, 0x82, 0xf5, 0xf5, 0x87, 0x58, 0xff, 0xbd, 0xa6, 0xad, 0x8b, 0xca, 0x57,
-	0x1c, 0xa2, 0xaa, 0xc3, 0x79, 0x28, 0xd6, 0x05, 0xd6, 0xa1, 0x58, 0x3c, 0x8f, 0x0a, 0xc5, 0x2c,
-	0xe1, 0xda, 0xbd, 0x7a, 0xce, 0x33, 0x96, 0x70, 0xbc, 0x0d, 0xa6, 0x1b, 0xb1, 0x68, 0x12, 0x06,
-	0x7c, 0x22, 0xcd, 0x99, 0xce, 0x1c, 0xc0, 0x07, 0xf0, 0x58, 0x25, 0xeb, 0xb7, 0xd0, 0x95, 0xdf,
-	0xac, 0x74, 0x88, 0x6e, 0x04, 0xa7, 0x1d, 0x97, 0xdb, 0xa2, 0x7a, 0xed, 0xfa, 0x03, 0xae, 0x2d,
-	0x52, 0xb3, 0xd8, 0x2b, 0x52, 0x1b, 0xf7, 0xa7, 0x6a, 0xb6, 0x4a, 0xf5, 0xe8, 0x05, 0xd5, 0xa9,
-	0xcd, 0xfb, 0x53, 0x35, 0xfb, 0x90, 0xef, 0xff, 0x41, 0xb0, 0x2e, 0xef, 0x83, 0x4f, 0xa0, 0x55,
-	0xfa, 0x2b, 0xd8, 0x2a, 0x6e, 0x7b, 0xf7, 0x23, 0x5a, 0x5b, 0x4b, 0x63, 0xea, 0x73, 0x75, 0x0d,
-	0xfc, 0x1e, 0xda, 0xe5, 0x41, 0x83, 0x6f, 0xe9, 0x4b, 0xa6, 0x92, 0xb5, 0xbd, 0x3c, 0xb8, 0x20,
-	0x76, 0x3b, 0x54, 0x2a, 0x62, 0x8b, 0x13, 0xa8, 0x22, 0x76, 0x67, 0x0e, 0x75, 0x8d, 0xa3, 0xb7,
-	0x37, 0x53, 0x62, 0xfc, 0x9d, 0x12, 0xf4, 0x6f, 0x4a, 0xd0, 0xd7, 0x9c, 0xa0, 0xef, 0x39, 0x41,
-	0x57, 0x39, 0x41, 0x3f, 0x73, 0x82, 0xae, 0x73, 0x82, 0x7e, 0xe5, 0x04, 0x7d, 0x9b, 0x11, 0xe3,
-	0x7a, 0x46, 0x8c, 0x9b, 0x19, 0x31, 0x3e, 0xea, 0x19, 0x3d, 0xaa, 0xcb, 0x32, 0xbe, 0xf9, 0x1f,
-	0x00, 0x00, 0xff, 0xff, 0x8a, 0x60, 0xa0, 0x80, 0xc1, 0x05, 0x00, 0x00,
+	// 635 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x55, 0xcf, 0x6e, 0xd3, 0x4e,
+	0x10, 0xf6, 0x36, 0xfd, 0x13, 0x4f, 0xf2, 0xd3, 0x4f, 0x6c, 0x0b, 0x04, 0xb7, 0x6c, 0x8a, 0x4f,
+	0xbd, 0xe0, 0xa0, 0x72, 0x81, 0x13, 0x6a, 0x22, 0xd1, 0x96, 0x4a, 0x55, 0xe5, 0xf6, 0xc4, 0x25,
+	0x72, 0xe2, 0xc5, 0x44, 0xaa, 0xbd, 0xc6, 0x5e, 0x4b, 0xcd, 0x8d, 0x47, 0xe8, 0x4b, 0x20, 0xf1,
+	0x00, 0x1c, 0xb8, 0x72, 0xe3, 0xd8, 0x63, 0x6f, 0x10, 0xe7, 0x05, 0x38, 0x72, 0xe0, 0x80, 0xbc,
+	0x5e, 0x27, 0x76, 0x62, 0xa4, 0x34, 0xb7, 0xf5, 0x7c, 0x33, 0xdf, 0x7c, 0x33, 0x3b, 0x3b, 0x86,
+	0x9a, 0x1f, 0xb0, 0xab, 0xa1, 0xe1, 0x07, 0x8c, 0x33, 0xbc, 0xee, 0x88, 0x2f, 0xad, 0xe9, 0x30,
+	0xe6, 0x5c, 0xd2, 0x96, 0xb0, 0xf6, 0xa2, 0x77, 0x2d, 0x3e, 0x70, 0x69, 0xc8, 0x2d, 0xd7, 0x4f,
+	0x1d, 0xb5, 0xa7, 0xce, 0x80, 0xbf, 0x8f, 0x7a, 0x46, 0x9f, 0xb9, 0x2d, 0x87, 0x39, 0x6c, 0xea,
+	0x99, 0x7c, 0x89, 0x0f, 0x71, 0x4a, 0xdd, 0xf5, 0x37, 0xf0, 0xa0, 0x13, 0x50, 0x8b, 0xd3, 0xb3,
+	0x84, 0xfe, 0x9c, 0x5b, 0xdc, 0xa4, 0x1f, 0x22, 0x1a, 0x72, 0xfc, 0x0c, 0x40, 0xa4, 0xec, 0x86,
+	0xdc, 0xe2, 0x0d, 0xb4, 0x8b, 0xf6, 0x6a, 0xfb, 0xf7, 0x8c, 0x54, 0x86, 0x31, 0xf5, 0x56, 0xfd,
+	0xec, 0xa8, 0x9f, 0xc0, 0xc3, 0x39, 0xae, 0xd0, 0x67, 0x5e, 0x48, 0x97, 0x20, 0xbb, 0x0f, 0x9b,
+	0x87, 0x94, 0x9f, 0xd2, 0x2b, 0x2e, 0x60, 0xa9, 0x4a, 0x3f, 0x82, 0xad, 0xa2, 0x79, 0x36, 0xc1,
+	0x80, 0x53, 0xb7, 0x34, 0xc1, 0x31, 0xa7, 0xae, 0x4c, 0x90, 0x1c, 0x65, 0x82, 0x36, 0x0d, 0xcb,
+	0x12, 0xe4, 0xcc, 0x4b, 0x27, 0x78, 0x0d, 0x38, 0xd7, 0x8e, 0xb9, 0xb6, 0x2e, 0xcc, 0x73, 0x08,
+	0x9b, 0x05, 0x9e, 0xa5, 0x05, 0x7d, 0x41, 0x50, 0x17, 0x40, 0x87, 0x45, 0x1e, 0x0f, 0x86, 0xf8,
+	0x31, 0x40, 0x3f, 0x3d, 0x76, 0x07, 0xb6, 0xa0, 0xa8, 0x98, 0xaa, 0xb4, 0x1c, 0xdb, 0xf8, 0x09,
+	0xd4, 0x33, 0xd8, 0xb3, 0x5c, 0xda, 0x58, 0xd9, 0x45, 0x7b, 0xaa, 0x59, 0x93, 0xb6, 0x53, 0xcb,
+	0xa5, 0x79, 0x97, 0x3e, 0xb3, 0x69, 0xa3, 0x52, 0x70, 0xe9, 0x30, 0x9b, 0xe2, 0x57, 0x00, 0x7d,
+	0x21, 0xdf, 0xee, 0x5a, 0xbc, 0xb1, 0x2a, 0x74, 0x6a, 0x46, 0x3a, 0xc6, 0x46, 0x36, 0x9c, 0xc6,
+	0x45, 0x36, 0xc6, 0xed, 0xd5, 0xeb, 0x1f, 0x4d, 0x64, 0xaa, 0x32, 0xe6, 0x80, 0xeb, 0x9f, 0x10,
+	0xa8, 0x93, 0x11, 0xc1, 0x8f, 0xa0, 0x2a, 0xcb, 0xb6, 0x85, 0xa0, 0x8a, 0xb9, 0x91, 0x56, 0x68,
+	0xe3, 0x6d, 0x50, 0xfb, 0xcc, 0xf3, 0xba, 0xc9, 0x93, 0x10, 0x4a, 0x2a, 0x66, 0x35, 0x31, 0x24,
+	0xdc, 0xb8, 0x09, 0x35, 0x01, 0x26, 0x03, 0x18, 0x85, 0x42, 0x47, 0xd5, 0x84, 0xc4, 0x74, 0x2e,
+	0x2c, 0x33, 0x3a, 0xd7, 0xee, 0xae, 0xf3, 0xcf, 0x8a, 0xd4, 0x99, 0x34, 0xbb, 0xa0, 0x13, 0x15,
+	0x75, 0x4e, 0x21, 0x5f, 0xf6, 0x54, 0x42, 0x7e, 0x72, 0x23, 0x29, 0xe4, 0xb3, 0x80, 0xcb, 0x1a,
+	0xd2, 0x1b, 0x3c, 0x63, 0x01, 0xc7, 0x3b, 0xa0, 0x5a, 0x1e, 0xf3, 0x86, 0xee, 0x80, 0x0f, 0x85,
+	0x44, 0xd5, 0x9c, 0x1a, 0xf0, 0x4b, 0xf8, 0x2f, 0x0d, 0x96, 0xed, 0x97, 0xcd, 0xde, 0x2a, 0x0c,
+	0x85, 0xbc, 0x7b, 0xb3, 0xee, 0xe7, 0x27, 0xa1, 0x58, 0xfc, 0xfa, 0x9d, 0x8b, 0x4f, 0x08, 0x22,
+	0xdf, 0xce, 0x08, 0x36, 0x16, 0x25, 0x90, 0x31, 0x29, 0x81, 0x4d, 0x2f, 0xa9, 0x24, 0xa8, 0x2e,
+	0x4a, 0x20, 0x63, 0x0e, 0xf8, 0xfe, 0xb7, 0x15, 0x58, 0x13, 0x15, 0xe2, 0x23, 0xa8, 0xe5, 0x1e,
+	0x0c, 0xd6, 0xb2, 0xfa, 0xe7, 0x5f, 0xa3, 0xb6, 0x5d, 0x8a, 0xa5, 0x2f, 0x4c, 0x57, 0xf0, 0x05,
+	0xfc, 0x3f, 0xb3, 0xd1, 0x30, 0x29, 0x89, 0xc8, 0xad, 0x4d, 0xad, 0xf9, 0x4f, 0x7c, 0xc2, 0x7a,
+	0x02, 0xf5, 0xfc, 0x0e, 0xc3, 0x13, 0x11, 0x25, 0x0b, 0x4f, 0xdb, 0x29, 0x07, 0x67, 0xc8, 0x26,
+	0xfb, 0xaa, 0x40, 0x36, 0xbb, 0xdc, 0x0a, 0x64, 0x73, 0x2b, 0x4e, 0x57, 0xda, 0x2f, 0x6e, 0x47,
+	0x44, 0xf9, 0x35, 0x22, 0xe8, 0xf7, 0x88, 0xa0, 0x8f, 0x31, 0x41, 0x9f, 0x63, 0x82, 0xbe, 0xc6,
+	0x04, 0x7d, 0x8f, 0x09, 0xba, 0x89, 0x09, 0xfa, 0x19, 0x13, 0x74, 0x3d, 0x26, 0xca, 0xcd, 0x98,
+	0x28, 0xb7, 0x63, 0xa2, 0xbc, 0x95, 0xff, 0xa5, 0xde, 0xba, 0xb8, 0xa2, 0xe7, 0x7f, 0x03, 0x00,
+	0x00, 0xff, 0xff, 0xdf, 0x34, 0xba, 0x4c, 0xb5, 0x06, 0x00, 0x00,
 }
 
+func (this *CreateProxyStatRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*CreateProxyStatRequest)
+	if !ok {
+		that2, ok := that.(CreateProxyStatRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyStat.Equal(that1.ProxyStat) {
+		return false
+	}
+	return true
+}
+func (this *CreateProxyStatResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*CreateProxyStatResponse)
+	if !ok {
+		that2, ok := that.(CreateProxyStatResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.ProxyStat.Equal(that1.ProxyStat) {
+		return false
+	}
+	return true
+}
 func (this *GetNextProxyRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -734,7 +871,11 @@ func (this *ProxyCountry) Equal(that interface{}) bool {
 	if this.CountryCode != that1.CountryCode {
 		return false
 	}
-	if !this.CreatedAt.Equal(that1.CreatedAt) {
+	if that1.CreatedAt == nil {
+		if this.CreatedAt != nil {
+			return false
+		}
+	} else if !this.CreatedAt.Equal(*that1.CreatedAt) {
 		return false
 	}
 	return true
@@ -758,9 +899,6 @@ func (this *ProxyStat) Equal(that interface{}) bool {
 	} else if this == nil {
 		return false
 	}
-	if this.StatId != that1.StatId {
-		return false
-	}
 	if this.ProxyId != that1.ProxyId {
 		return false
 	}
@@ -770,7 +908,11 @@ func (this *ProxyStat) Equal(that interface{}) bool {
 	if this.ConnStatus != that1.ConnStatus {
 		return false
 	}
-	if !this.CreatedAt.Equal(that1.CreatedAt) {
+	if that1.CreatedAt == nil {
+		if this.CreatedAt != nil {
+			return false
+		}
+	} else if !this.CreatedAt.Equal(*that1.CreatedAt) {
 		return false
 	}
 	return true
@@ -809,16 +951,52 @@ func (this *ProxyItem) Equal(that interface{}) bool {
 	if !this.ProxyCountry.Equal(that1.ProxyCountry) {
 		return false
 	}
-	if !this.CreatedAt.Equal(that1.CreatedAt) {
+	if that1.CreatedAt == nil {
+		if this.CreatedAt != nil {
+			return false
+		}
+	} else if !this.CreatedAt.Equal(*that1.CreatedAt) {
 		return false
 	}
-	if !this.UpdatedAt.Equal(that1.UpdatedAt) {
+	if that1.UpdatedAt == nil {
+		if this.UpdatedAt != nil {
+			return false
+		}
+	} else if !this.UpdatedAt.Equal(*that1.UpdatedAt) {
 		return false
 	}
-	if !this.DeletedAt.Equal(that1.DeletedAt) {
+	if that1.DeletedAt == nil {
+		if this.DeletedAt != nil {
+			return false
+		}
+	} else if !this.DeletedAt.Equal(*that1.DeletedAt) {
 		return false
 	}
 	return true
+}
+func (this *CreateProxyStatRequest) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&gproxy.CreateProxyStatRequest{")
+	if this.ProxyStat != nil {
+		s = append(s, "ProxyStat: "+fmt.Sprintf("%#v", this.ProxyStat)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *CreateProxyStatResponse) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&gproxy.CreateProxyStatResponse{")
+	if this.ProxyStat != nil {
+		s = append(s, "ProxyStat: "+fmt.Sprintf("%#v", this.ProxyStat)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
 }
 func (this *GetNextProxyRequest) GoString() string {
 	if this == nil {
@@ -895,9 +1073,7 @@ func (this *ProxyCountry) GoString() string {
 	s = append(s, "CountryId: "+fmt.Sprintf("%#v", this.CountryId)+",\n")
 	s = append(s, "CountryName: "+fmt.Sprintf("%#v", this.CountryName)+",\n")
 	s = append(s, "CountryCode: "+fmt.Sprintf("%#v", this.CountryCode)+",\n")
-	if this.CreatedAt != nil {
-		s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
-	}
+	s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -905,15 +1081,12 @@ func (this *ProxyStat) GoString() string {
 	if this == nil {
 		return "nil"
 	}
-	s := make([]string, 0, 9)
+	s := make([]string, 0, 8)
 	s = append(s, "&gproxy.ProxyStat{")
-	s = append(s, "StatId: "+fmt.Sprintf("%#v", this.StatId)+",\n")
 	s = append(s, "ProxyId: "+fmt.Sprintf("%#v", this.ProxyId)+",\n")
 	s = append(s, "ConnTime: "+fmt.Sprintf("%#v", this.ConnTime)+",\n")
 	s = append(s, "ConnStatus: "+fmt.Sprintf("%#v", this.ConnStatus)+",\n")
-	if this.CreatedAt != nil {
-		s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
-	}
+	s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -930,15 +1103,9 @@ func (this *ProxyItem) GoString() string {
 	if this.ProxyCountry != nil {
 		s = append(s, "ProxyCountry: "+fmt.Sprintf("%#v", this.ProxyCountry)+",\n")
 	}
-	if this.CreatedAt != nil {
-		s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
-	}
-	if this.UpdatedAt != nil {
-		s = append(s, "UpdatedAt: "+fmt.Sprintf("%#v", this.UpdatedAt)+",\n")
-	}
-	if this.DeletedAt != nil {
-		s = append(s, "DeletedAt: "+fmt.Sprintf("%#v", this.DeletedAt)+",\n")
-	}
+	s = append(s, "CreatedAt: "+fmt.Sprintf("%#v", this.CreatedAt)+",\n")
+	s = append(s, "UpdatedAt: "+fmt.Sprintf("%#v", this.UpdatedAt)+",\n")
+	s = append(s, "DeletedAt: "+fmt.Sprintf("%#v", this.DeletedAt)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -964,6 +1131,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ProxyClient interface {
 	CreateProxy(ctx context.Context, in *CreateProxyRequest, opts ...grpc.CallOption) (*CreateProxyResponse, error)
+	CreateProxyStat(ctx context.Context, in *CreateProxyStatRequest, opts ...grpc.CallOption) (*CreateProxyStatResponse, error)
 	GetNextProxy(ctx context.Context, in *GetNextProxyRequest, opts ...grpc.CallOption) (*GetNextProxyResponse, error)
 	GetBestProxy(ctx context.Context, in *GetBestProxyRequest, opts ...grpc.CallOption) (*GetBestProxyResponse, error)
 }
@@ -979,6 +1147,15 @@ func NewProxyClient(cc *grpc.ClientConn) ProxyClient {
 func (c *proxyClient) CreateProxy(ctx context.Context, in *CreateProxyRequest, opts ...grpc.CallOption) (*CreateProxyResponse, error) {
 	out := new(CreateProxyResponse)
 	err := c.cc.Invoke(ctx, "/gproxy.Proxy/CreateProxy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *proxyClient) CreateProxyStat(ctx context.Context, in *CreateProxyStatRequest, opts ...grpc.CallOption) (*CreateProxyStatResponse, error) {
+	out := new(CreateProxyStatResponse)
+	err := c.cc.Invoke(ctx, "/gproxy.Proxy/CreateProxyStat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1006,6 +1183,7 @@ func (c *proxyClient) GetBestProxy(ctx context.Context, in *GetBestProxyRequest,
 // ProxyServer is the server API for Proxy service.
 type ProxyServer interface {
 	CreateProxy(context.Context, *CreateProxyRequest) (*CreateProxyResponse, error)
+	CreateProxyStat(context.Context, *CreateProxyStatRequest) (*CreateProxyStatResponse, error)
 	GetNextProxy(context.Context, *GetNextProxyRequest) (*GetNextProxyResponse, error)
 	GetBestProxy(context.Context, *GetBestProxyRequest) (*GetBestProxyResponse, error)
 }
@@ -1016,6 +1194,9 @@ type UnimplementedProxyServer struct {
 
 func (*UnimplementedProxyServer) CreateProxy(ctx context.Context, req *CreateProxyRequest) (*CreateProxyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateProxy not implemented")
+}
+func (*UnimplementedProxyServer) CreateProxyStat(ctx context.Context, req *CreateProxyStatRequest) (*CreateProxyStatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProxyStat not implemented")
 }
 func (*UnimplementedProxyServer) GetNextProxy(ctx context.Context, req *GetNextProxyRequest) (*GetNextProxyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNextProxy not implemented")
@@ -1042,6 +1223,24 @@ func _Proxy_CreateProxy_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProxyServer).CreateProxy(ctx, req.(*CreateProxyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Proxy_CreateProxyStat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProxyStatRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProxyServer).CreateProxyStat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/gproxy.Proxy/CreateProxyStat",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProxyServer).CreateProxyStat(ctx, req.(*CreateProxyStatRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1091,6 +1290,10 @@ var _Proxy_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Proxy_CreateProxy_Handler,
 		},
 		{
+			MethodName: "CreateProxyStat",
+			Handler:    _Proxy_CreateProxyStat_Handler,
+		},
+		{
 			MethodName: "GetNextProxy",
 			Handler:    _Proxy_GetNextProxy_Handler,
 		},
@@ -1101,6 +1304,76 @@ var _Proxy_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "proxy.proto",
+}
+
+func (m *CreateProxyStatRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateProxyStatRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateProxyStatRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ProxyStat != nil {
+		{
+			size, err := m.ProxyStat.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintProxy(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CreateProxyStatResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateProxyStatResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateProxyStatResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ProxyStat != nil {
+		{
+			size, err := m.ProxyStat.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintProxy(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *GetNextProxyRequest) Marshal() (dAtA []byte, err error) {
@@ -1310,14 +1583,12 @@ func (m *ProxyCountry) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if m.CreatedAt != nil {
-		{
-			size, err := m.CreatedAt.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintProxy(dAtA, i, uint64(size))
+		n7, err7 := github_com_gogo_protobuf_types.StdTimeMarshalTo(*m.CreatedAt, dAtA[i-github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt):])
+		if err7 != nil {
+			return 0, err7
 		}
+		i -= n7
+		i = encodeVarintProxy(dAtA, i, uint64(n7))
 		i--
 		dAtA[i] = 0x22
 	}
@@ -1364,14 +1635,12 @@ func (m *ProxyStat) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if m.CreatedAt != nil {
-		{
-			size, err := m.CreatedAt.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintProxy(dAtA, i, uint64(size))
+		n8, err8 := github_com_gogo_protobuf_types.StdTimeMarshalTo(*m.CreatedAt, dAtA[i-github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt):])
+		if err8 != nil {
+			return 0, err8
 		}
+		i -= n8
+		i = encodeVarintProxy(dAtA, i, uint64(n8))
 		i--
 		dAtA[i] = 0x2a
 	}
@@ -1394,11 +1663,6 @@ func (m *ProxyStat) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintProxy(dAtA, i, uint64(m.ProxyId))
 		i--
 		dAtA[i] = 0x10
-	}
-	if m.StatId != 0 {
-		i = encodeVarintProxy(dAtA, i, uint64(m.StatId))
-		i--
-		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
@@ -1424,38 +1688,32 @@ func (m *ProxyItem) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if m.DeletedAt != nil {
-		{
-			size, err := m.DeletedAt.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintProxy(dAtA, i, uint64(size))
+		n9, err9 := github_com_gogo_protobuf_types.StdTimeMarshalTo(*m.DeletedAt, dAtA[i-github_com_gogo_protobuf_types.SizeOfStdTime(*m.DeletedAt):])
+		if err9 != nil {
+			return 0, err9
 		}
+		i -= n9
+		i = encodeVarintProxy(dAtA, i, uint64(n9))
 		i--
 		dAtA[i] = 0x42
 	}
 	if m.UpdatedAt != nil {
-		{
-			size, err := m.UpdatedAt.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintProxy(dAtA, i, uint64(size))
+		n10, err10 := github_com_gogo_protobuf_types.StdTimeMarshalTo(*m.UpdatedAt, dAtA[i-github_com_gogo_protobuf_types.SizeOfStdTime(*m.UpdatedAt):])
+		if err10 != nil {
+			return 0, err10
 		}
+		i -= n10
+		i = encodeVarintProxy(dAtA, i, uint64(n10))
 		i--
 		dAtA[i] = 0x3a
 	}
 	if m.CreatedAt != nil {
-		{
-			size, err := m.CreatedAt.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintProxy(dAtA, i, uint64(size))
+		n11, err11 := github_com_gogo_protobuf_types.StdTimeMarshalTo(*m.CreatedAt, dAtA[i-github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt):])
+		if err11 != nil {
+			return 0, err11
 		}
+		i -= n11
+		i = encodeVarintProxy(dAtA, i, uint64(n11))
 		i--
 		dAtA[i] = 0x32
 	}
@@ -1509,6 +1767,26 @@ func encodeVarintProxy(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func NewPopulatedCreateProxyStatRequest(r randyProxy, easy bool) *CreateProxyStatRequest {
+	this := &CreateProxyStatRequest{}
+	if r.Intn(5) != 0 {
+		this.ProxyStat = NewPopulatedProxyStat(r, easy)
+	}
+	if !easy && r.Intn(10) != 0 {
+	}
+	return this
+}
+
+func NewPopulatedCreateProxyStatResponse(r randyProxy, easy bool) *CreateProxyStatResponse {
+	this := &CreateProxyStatResponse{}
+	if r.Intn(5) != 0 {
+		this.ProxyStat = NewPopulatedProxyStat(r, easy)
+	}
+	if !easy && r.Intn(10) != 0 {
+	}
+	return this
+}
+
 func NewPopulatedGetNextProxyRequest(r randyProxy, easy bool) *GetNextProxyRequest {
 	this := &GetNextProxyRequest{}
 	if !easy && r.Intn(10) != 0 {
@@ -1572,7 +1850,7 @@ func NewPopulatedProxyCountry(r randyProxy, easy bool) *ProxyCountry {
 	this.CountryName = string(randStringProxy(r))
 	this.CountryCode = string(randStringProxy(r))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = github_com_gogo_protobuf_types.NewPopulatedStdTime(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1581,10 +1859,6 @@ func NewPopulatedProxyCountry(r randyProxy, easy bool) *ProxyCountry {
 
 func NewPopulatedProxyStat(r randyProxy, easy bool) *ProxyStat {
 	this := &ProxyStat{}
-	this.StatId = int64(r.Int63())
-	if r.Intn(2) == 0 {
-		this.StatId *= -1
-	}
 	this.ProxyId = int64(r.Int63())
 	if r.Intn(2) == 0 {
 		this.ProxyId *= -1
@@ -1595,7 +1869,7 @@ func NewPopulatedProxyStat(r randyProxy, easy bool) *ProxyStat {
 	}
 	this.ConnStatus = bool(bool(r.Intn(2) == 0))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = github_com_gogo_protobuf_types.NewPopulatedStdTime(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1618,13 +1892,13 @@ func NewPopulatedProxyItem(r randyProxy, easy bool) *ProxyItem {
 	}
 	this.Anonymity = string(randStringProxy(r))
 	if r.Intn(5) != 0 {
-		this.CreatedAt = types.NewPopulatedTimestamp(r, easy)
+		this.CreatedAt = github_com_gogo_protobuf_types.NewPopulatedStdTime(r, easy)
 	}
 	if r.Intn(5) != 0 {
-		this.UpdatedAt = types.NewPopulatedTimestamp(r, easy)
+		this.UpdatedAt = github_com_gogo_protobuf_types.NewPopulatedStdTime(r, easy)
 	}
 	if r.Intn(5) != 0 {
-		this.DeletedAt = types.NewPopulatedTimestamp(r, easy)
+		this.DeletedAt = github_com_gogo_protobuf_types.NewPopulatedStdTime(r, easy)
 	}
 	if !easy && r.Intn(10) != 0 {
 	}
@@ -1703,6 +1977,32 @@ func encodeVarintPopulateProxy(dAtA []byte, v uint64) []byte {
 	dAtA = append(dAtA, uint8(v))
 	return dAtA
 }
+func (m *CreateProxyStatRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ProxyStat != nil {
+		l = m.ProxyStat.Size()
+		n += 1 + l + sovProxy(uint64(l))
+	}
+	return n
+}
+
+func (m *CreateProxyStatResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ProxyStat != nil {
+		l = m.ProxyStat.Size()
+		n += 1 + l + sovProxy(uint64(l))
+	}
+	return n
+}
+
 func (m *GetNextProxyRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1791,7 +2091,7 @@ func (m *ProxyCountry) Size() (n int) {
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	if m.CreatedAt != nil {
-		l = m.CreatedAt.Size()
+		l = github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt)
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	return n
@@ -1803,9 +2103,6 @@ func (m *ProxyStat) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.StatId != 0 {
-		n += 1 + sovProxy(uint64(m.StatId))
-	}
 	if m.ProxyId != 0 {
 		n += 1 + sovProxy(uint64(m.ProxyId))
 	}
@@ -1816,7 +2113,7 @@ func (m *ProxyStat) Size() (n int) {
 		n += 2
 	}
 	if m.CreatedAt != nil {
-		l = m.CreatedAt.Size()
+		l = github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt)
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	return n
@@ -1847,15 +2144,15 @@ func (m *ProxyItem) Size() (n int) {
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	if m.CreatedAt != nil {
-		l = m.CreatedAt.Size()
+		l = github_com_gogo_protobuf_types.SizeOfStdTime(*m.CreatedAt)
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	if m.UpdatedAt != nil {
-		l = m.UpdatedAt.Size()
+		l = github_com_gogo_protobuf_types.SizeOfStdTime(*m.UpdatedAt)
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	if m.DeletedAt != nil {
-		l = m.DeletedAt.Size()
+		l = github_com_gogo_protobuf_types.SizeOfStdTime(*m.DeletedAt)
 		n += 1 + l + sovProxy(uint64(l))
 	}
 	return n
@@ -1866,6 +2163,26 @@ func sovProxy(x uint64) (n int) {
 }
 func sozProxy(x uint64) (n int) {
 	return sovProxy(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (this *CreateProxyStatRequest) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&CreateProxyStatRequest{`,
+		`ProxyStat:` + strings.Replace(this.ProxyStat.String(), "ProxyStat", "ProxyStat", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *CreateProxyStatResponse) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&CreateProxyStatResponse{`,
+		`ProxyStat:` + strings.Replace(this.ProxyStat.String(), "ProxyStat", "ProxyStat", 1) + `,`,
+		`}`,
+	}, "")
+	return s
 }
 func (this *GetNextProxyRequest) String() string {
 	if this == nil {
@@ -1943,7 +2260,6 @@ func (this *ProxyStat) String() string {
 		return "nil"
 	}
 	s := strings.Join([]string{`&ProxyStat{`,
-		`StatId:` + fmt.Sprintf("%v", this.StatId) + `,`,
 		`ProxyId:` + fmt.Sprintf("%v", this.ProxyId) + `,`,
 		`ConnTime:` + fmt.Sprintf("%v", this.ConnTime) + `,`,
 		`ConnStatus:` + fmt.Sprintf("%v", this.ConnStatus) + `,`,
@@ -1976,6 +2292,184 @@ func valueToStringProxy(v interface{}) string {
 	}
 	pv := reflect.Indirect(rv).Interface()
 	return fmt.Sprintf("*%v", pv)
+}
+func (m *CreateProxyStatRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowProxy
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateProxyStatRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateProxyStatRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ProxyStat", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowProxy
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthProxy
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ProxyStat == nil {
+				m.ProxyStat = &ProxyStat{}
+			}
+			if err := m.ProxyStat.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipProxy(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateProxyStatResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowProxy
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateProxyStatResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateProxyStatResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ProxyStat", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowProxy
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthProxy
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ProxyStat == nil {
+				m.ProxyStat = &ProxyStat{}
+			}
+			if err := m.ProxyStat.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipProxy(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthProxy
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *GetNextProxyRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -2581,9 +3075,9 @@ func (m *ProxyCountry) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &types.Timestamp{}
+				m.CreatedAt = new(time.Time)
 			}
-			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := github_com_gogo_protobuf_types.StdTimeUnmarshal(m.CreatedAt, dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2640,25 +3134,6 @@ func (m *ProxyStat) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: ProxyStat: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field StatId", wireType)
-			}
-			m.StatId = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowProxy
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.StatId |= int64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ProxyId", wireType)
@@ -2747,9 +3222,9 @@ func (m *ProxyStat) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &types.Timestamp{}
+				m.CreatedAt = new(time.Time)
 			}
-			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := github_com_gogo_protobuf_types.StdTimeUnmarshal(m.CreatedAt, dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2974,9 +3449,9 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.CreatedAt == nil {
-				m.CreatedAt = &types.Timestamp{}
+				m.CreatedAt = new(time.Time)
 			}
-			if err := m.CreatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := github_com_gogo_protobuf_types.StdTimeUnmarshal(m.CreatedAt, dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -3010,9 +3485,9 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.UpdatedAt == nil {
-				m.UpdatedAt = &types.Timestamp{}
+				m.UpdatedAt = new(time.Time)
 			}
-			if err := m.UpdatedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := github_com_gogo_protobuf_types.StdTimeUnmarshal(m.UpdatedAt, dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -3046,9 +3521,9 @@ func (m *ProxyItem) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.DeletedAt == nil {
-				m.DeletedAt = &types.Timestamp{}
+				m.DeletedAt = new(time.Time)
 			}
-			if err := m.DeletedAt.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := github_com_gogo_protobuf_types.StdTimeUnmarshal(m.DeletedAt, dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
