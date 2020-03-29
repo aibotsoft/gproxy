@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/dgraph-io/ristretto"
 	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"go/types"
@@ -13,7 +14,7 @@ import (
 
 type Store struct {
 	log   *zap.SugaredLogger
-	db    *pgx.Conn
+	db    *pgxpool.Pool
 	cache *ristretto.Cache
 }
 
@@ -90,6 +91,6 @@ func (s *Store) CreateProxyStat(stat *ProxyStat) error {
 	return s.db.QueryRow(ctx, insertProxyStat, stat.ProxyId, stat.ConnTime, stat.ConnStatus).Scan(&stat.CreatedAt)
 }
 
-func New(log *zap.SugaredLogger, db *pgx.Conn) *Store {
+func New(log *zap.SugaredLogger, db *pgxpool.Pool) *Store {
 	return &Store{log: log, db: db}
 }
