@@ -28,11 +28,14 @@ func (s *Server) CreateProxy(ctx context.Context, req *CreateProxyRequest) (*Cre
 // GetNextProxy возвращает прокси которое нужно проверить.
 // Возвращаются те которые еще не проверялись, либо отсортированные по времени проверки.
 func (s *Server) GetNextProxy(ctx context.Context, req *GetNextProxyRequest) (*GetNextProxyResponse, error) {
-	s.log.Debug("GetNextProxyRequest: ", req)
 	proxyItem := &ProxyItem{}
 	err := s.store.GetNextProxyItem(proxyItem)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "GetNextProxyItem: %v", err)
+	switch err {
+	case nil:
+		return &GetNextProxyResponse{ProxyItem: proxyItem}, nil
+	case ErrNoRows:
+		return nil, status.Errorf(codes.NotFound, "no new proxy to return")
+	default:
+		return nil, status.Errorf(codes.Internal, "GetNextProxy error %v", err)
 	}
-	return &GetNextProxyResponse{ProxyItem: proxyItem}, nil
 }
