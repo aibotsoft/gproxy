@@ -48,7 +48,7 @@ func TestServer_GetNextProxy(t *testing.T) {
 	log.Info(cfg)
 	db := postgres.MustConnect(cfg)
 
-	s := gproxy.NewServer(db)
+	s := gproxy.NewServer(cfg, log, db)
 	got, err := s.GetNextProxy(nil, nil)
 	//code:= status.Convert(err).Code()
 	assert.Equal(t, codes.NotFound, status.Convert(err).Code())
