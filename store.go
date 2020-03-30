@@ -21,7 +21,8 @@ const (
 	selectProxyCountryIdByCode = `select country_id from country where country_code=$1`
 	selectProxyIdByUI          = `select proxy_id from proxy where proxy_ip=$1 and proxy_port=$2`
 
-	getNextProxyItem = `select proxy_id, proxy_ip, proxy_port from proxy_stat_view limit 1`
+	//getNextProxyItem = `select proxy_id, proxy_ip, proxy_port from proxy_stat_view limit 1`
+	getNextProxyItem = `select proxy_id, proxy_ip, proxy_port from get_next_proxy_for_check limit 1`
 
 	insertProxyCountry = `INSERT INTO country (country_name, country_code) VALUES ($1, $2) returning country_id`
 

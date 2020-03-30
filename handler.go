@@ -34,7 +34,7 @@ func (s *Server) GetNextProxy(ctx context.Context, req *GetNextProxyRequest) (*G
 	case nil:
 		return &GetNextProxyResponse{ProxyItem: proxyItem}, nil
 	case ErrNoRows:
-		return nil, status.Errorf(codes.NotFound, "no new proxy to return")
+		return nil, status.Error(codes.NotFound, "no new proxy for check to return")
 	default:
 		return nil, status.Errorf(codes.Internal, "GetNextProxy error %v", err)
 	}
