@@ -1,7 +1,7 @@
-package gproxy_test
+package gproxy
 
 import (
-	"github.com/aibotsoft/gproxy"
+	"context"
 	"github.com/aibotsoft/micro/config"
 	"github.com/aibotsoft/micro/logger"
 	"github.com/aibotsoft/micro/postgres"
@@ -10,23 +10,17 @@ import (
 	"testing"
 )
 
-func TestStore_GetNextProxyItem(t *testing.T) {
+func TestStore_GetNextProxyItem_Multi(t *testing.T) {
 	gotenv.Must(gotenv.Load)
 	log := logger.New()
 	cfg := config.New()
-	log.Info(cfg)
-
 	db := postgres.MustConnect(cfg)
 	assert.NotEmpty(t, db)
-	store :=gproxy.New(log, db)
-	err := store.GetNextProxyItem(&gproxy.ProxyItem{})
-	t.Log(err)
-	//s := &Store{
-	//	log:   ni,
-	//	db:    tt.fields.db,
-	//	cache: tt.fields.cache,
-	//}
-	//if err := s.GetNextProxyItem(tt.args.p); (err != nil) != tt.wantErr {
-	//	t.Errorf("GetNextProxyItem() error = %v, wantErr %v", err, tt.wantErr)
-	//}
+	store :=New(log, db)
+	for i := 0; i < 100; i++ {
+		got, err := store.GetNextProxyItem(context.Background())
+		assert.NoError(t, err)
+		assert.NotEmpty(t, got)
+		t.Log(got)
+	}
 }

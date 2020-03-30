@@ -8,7 +8,7 @@ import (
 
 func (s *Server) CreateProxyStat(ctx context.Context, req *CreateProxyStatRequest) (*CreateProxyStatResponse, error) {
 	proxyStat := req.GetProxyStat()
-	err := s.store.CreateProxyStat(proxyStat)
+	err := s.store.CreateProxyStat(ctx, proxyStat)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "CreateProxyStat: %v", err)
 	}
@@ -16,9 +16,8 @@ func (s *Server) CreateProxyStat(ctx context.Context, req *CreateProxyStatReques
 }
 
 func (s *Server) CreateProxy(ctx context.Context, req *CreateProxyRequest) (*CreateProxyResponse, error) {
-	s.log.Debug(req)
 	proxyItem := req.GetProxyItem()
-	err := s.store.GetOrCreateProxyItem(proxyItem)
+	err := s.store.GetOrCreateProxyItem(ctx, proxyItem)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "GetOrCreateProxyItem: %v", err)
 	}
@@ -28,8 +27,7 @@ func (s *Server) CreateProxy(ctx context.Context, req *CreateProxyRequest) (*Cre
 // GetNextProxy возвращает прокси которое нужно проверить.
 // Возвращаются те которые еще не проверялись, либо отсортированные по времени проверки.
 func (s *Server) GetNextProxy(ctx context.Context, req *GetNextProxyRequest) (*GetNextProxyResponse, error) {
-	proxyItem := &ProxyItem{}
-	err := s.store.GetNextProxyItem(proxyItem)
+	proxyItem, err := s.store.GetNextProxyItem(ctx)
 	switch err {
 	case nil:
 		return &GetNextProxyResponse{ProxyItem: proxyItem}, nil
